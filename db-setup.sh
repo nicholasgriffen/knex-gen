@@ -22,9 +22,12 @@ echo 'running createdb ' $db;
 createdb $db;
 echo 'creating seeds and migrations directories';
 read -p 'Enter a table name: ' table
-echo 'running knex migrate:make create_' $table
+echo 'running knex migrate:make create_'$table
 knex migrate:make create_$table --knexfile ./db/knexfile.js;
-touch index.js; 
+export table;
+./write-model.sh
+./write-controller.sh
+./write-router.sh
 echo 'const express = require(`express`)
 const path = require(`path`)
 const resourceRouter = require(`./routes/resource`)

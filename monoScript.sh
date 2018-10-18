@@ -1,21 +1,21 @@
 #!/bin/bash
 
-echo 'creating package.json';
+echo 'INIT package.json';
 npm init -y;
-echo 'installing express';
+echo 'INSTALL express';
 npm install --save express;
-echo 'running dev setup';
-echo 'Installing nodemon';
+echo 'RUN dev setup';
+echo 'INSTALL nodemon';
 npm install --save-dev nodemon;
-echo 'Installing dotenv';
+echo 'INSTALL dotenv';
 npm install --save-dev dotenv;
-echo 'Installing test packages';
+echo 'INSTALL test packages';
 npm install --save-dev mocha chai chai-http;
-echo 'Adding test directory';
+echo 'CREATE test directory';
 mkdir ./test/;
-echo 'creating project directories';
+echo 'CREATE project directories';
 mkdir public/ routes/;
-echo 'creating basic index.html';
+echo 'WRITE basic index.html at public/indec.html';
 touch public/index.html;
 echo '<!DOCTYPE html>
 <html lang="en">
@@ -29,7 +29,7 @@ echo '<!DOCTYPE html>
     Made by express-setup.sh
 </body>
 </html>'> public/index.html
-echo 'writing generic router/resource.js';
+echo 'WRITE generic router at /resource.js';
 touch routes/resource.js;
 echo 'const express = require(`express`)
 const router = express.Router()
@@ -60,8 +60,6 @@ router.delete(`/:id`, (req, res, next) => {
 })
 
 module.exports = router' > routes/resource.js;
-echo 'writing generic index.test.js';
-touch test/index.test.js;
 echo 'const chai = require(`chai`)
 const app = require(`../index.js`)
 const path = require(`path`)
@@ -131,12 +129,12 @@ describe(`index.js`, () => {
       })
   })
 })' > test/index.test.js;
-echo 'setting npm test to mocha --exit';
+echo 'SET package.json scripts: "test": mocha --exit';
 sed -i '' 's/"echo \\"Error: no test specified\\" && exit 1"/"mocha --exit"/' package.json;
-echo 'setting npm dev to nodemon index.js'
+echo 'SET package.json scripts: "dev": nodemon index.js'
 sed -i '' 's/"scripts": {/"scripts": {\
     "dev": "nodemon index.js",/' package.json;
-echo 'validating install with mocha';
+echo 'TEST install with mocha';
 node node_modules/.bin/mocha --exit;
-echo 'Interactive DB setup';
+echo 'RUN interactive DB setup';
 ./db-setup.sh;
