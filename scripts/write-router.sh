@@ -1,3 +1,4 @@
+mkdir routes;
 touch routes/$table.js
 
 echo 'WRITE ROUTER routes/'$table'.js'
@@ -21,4 +22,4 @@ router.put(`/:id`, controller.update)
 // DELETE ONE record for this table
 router.delete(`/:id`, controller.delete)
 
-module.exports = router' > controllers/$table.js
+module.exports = router' > routes/$table.js

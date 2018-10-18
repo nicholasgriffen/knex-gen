@@ -1,4 +1,5 @@
-touch controllers/$table.js
+mkdir controllers;
+touch controllers/$table.js;
 
 echo 'WRITE CONTROLLER controllers/'$table'.js'
 echo 'const model = require(`../models/'$table'`)

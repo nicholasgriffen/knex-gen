@@ -1,4 +1,5 @@
-touch models/$table.js
+mkdir models;
+touch models/$table.js;
 
 echo 'WRITE models/'$table'.js'
 

@@ -25,9 +25,9 @@ read -p 'Enter a table name: ' table
 echo 'running knex migrate:make create_'$table
 knex migrate:make create_$table --knexfile ./db/knexfile.js;
 export table;
-./write-model.sh
-./write-controller.sh
-./write-router.sh
+./knex-gen/scripts/write-model.sh
+./knex-gen/scripts/write-controller.sh
+./knex-gen/scripts/write-router.sh
 echo 'const express = require(`express`)
 const path = require(`path`)
 const resourceRouter = require(`./routes/resource`)
@@ -57,3 +57,4 @@ app.use((err, req, res, next) => {
 app.listen(port, () => console.log(`listening on ${port}`))
 
 module.exports = app' > index.js;
+./test-install.sh;

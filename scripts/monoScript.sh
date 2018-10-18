@@ -137,4 +137,4 @@ sed -i '' 's/"scripts": {/"scripts": {\
 echo 'TEST install with mocha';
 node node_modules/.bin/mocha --exit;
 echo 'RUN interactive DB setup';
-./db-setup.sh;
+./knex-gen/scripts/db-setup.sh;
