@@ -130,11 +130,9 @@ describe(`index.js`, () => {
   })
 })' > test/index.test.js;
 echo 'SET package.json scripts: "test": mocha --exit';
-sed -i '' 's/"echo \\"Error: no test specified\\" && exit 1"/"mocha --exit"/' package.json;
+sed -i 's/"echo \\"Error: no test specified\\" && exit 1"/"mocha --exit"/' package.json;
 echo 'SET package.json scripts: "dev": nodemon index.js'
-sed -i '' 's/"scripts": {/"scripts": {\
+sed -i 's/"scripts": {/"scripts": {\
     "dev": "nodemon index.js",/' package.json;
-echo 'TEST install with mocha';
-node node_modules/.bin/mocha --exit;
 echo 'RUN interactive DB setup';
-./knex-gen/scripts/db-setup.sh;
+~/knex-gen/scripts/db-setup.sh;
