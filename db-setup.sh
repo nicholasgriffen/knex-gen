@@ -23,4 +23,4 @@ createdb $db;
 echo 'creating seeds and migrations directories';
 read -p 'Enter a migration name: ' migration
 echo 'running knex migrate:make ' $migration
-knex migrate:make $migration; 
+knex migrate:make $migration;
