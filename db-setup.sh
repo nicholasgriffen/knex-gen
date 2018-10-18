@@ -21,6 +21,36 @@ echo 'module.exports = {
 echo 'running createdb ' $db;
 createdb $db;
 echo 'creating seeds and migrations directories';
-read -p 'Enter a migration name: ' migration
-echo 'running knex migrate:make ' $migration
-knex migrate:make $migration;
+read -p 'Enter a table name: ' table
+echo 'running knex migrate:make create_' $table
+knex migrate:make create_$table --knexfile ./db/knexfile.js;
+touch index.js; 
+echo 'const express = require(`express`)
+const path = require(`path`)
+const resourceRouter = require(`./routes/resource`)
+const '$table'Router = require(`.routes/'$table'`)
+
+const app = express()
+
+const port = process.env.PORT || 3000
+
+app.use(express.static(path.join(__dirname, `public`)))
+app.use(`/resource`, resourceRouter)
+app.use(`/'$table', '$table'Router`)
+
+//handle 404
+app.use((req, res, next) => {
+    let error = new Error(`Not found`)
+    error.status = 404
+    next(error)
+})
+
+//handle all errors
+app.use((err, req, res, next) => {
+    res.status(err.status || 500)
+    res.send(err)
+})
+
+app.listen(port, () => console.log(`listening on ${port}`))
+
+module.exports = app' > index.js;

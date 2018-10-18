@@ -37,9 +37,9 @@ function verifyId(id) {
     if (!id || typeof id !== `number`) {
         let error = new Error('Bad ID')
         error.status = 400
-        Promise.reject(error)
+        return Promise.reject(error)
     }
-    Promise.resolve(id)
+    return Promise.resolve(id)
 }
 
 module.exports = controller
