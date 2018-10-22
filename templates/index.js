@@ -1,29 +1,31 @@
-const express = require(`express`)
-const path = require(`path`)
+const express = require('express')
+// Middleware
+const router = require('./router')
 const bodyParser = require('body-parser')
-const '$table'Router = require(`./routes/'$table'`)
-
+const helmet = require('helmet')
+// Server
 const app = express()
-
 const port = process.env.PORT || 3000
 
+app.use(helmet())
 app.use(bodyParser.json())
-app.use(express.static(path.join(__dirname, `public`)))
-app.use(`/'$table'`, '$table'Router)
+// Dynamic route buil
+router.mount(router, app)
 
-//handle 404
+// catch 404
 app.use((req, res, next) => {
-    let error = new Error('Not found')
-    error.status = 404
-    next(error)
+    const msg = 'no routes found'
+    const err = new Error(msg)
+    err.status = 404
+    return next(err)
 })
 
-//handle all errors
+// finally
 app.use((err, req, res, next) => {
-    res.status(err.status || 500)
-    res.send(err)
+    console.error(err)
+    res.status(err.status || 500).json(err)
 })
 
-app.listen(port, () => console.log(`listening on ${port}`))
+app.listen(port, () => `Listening on ${port}`)
 
 module.exports = app
